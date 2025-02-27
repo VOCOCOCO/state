@@ -10,15 +10,16 @@
     <button onclick="sendReferral()">Отправить данные</button>
 
     <script>
+        // Функция отправки данных в Telegram бота
         function sendReferral() {
             // Создаем данные, которые передадим боту
             const referralData = 'unique_referral_code_12345';
 
-            // Отправляем данные в бот
+            // Отправляем данные в Telegram
             Telegram.WebApp.sendData(referralData);
         }
 
-        // Настроим WebApp
+        // Инициализация WebApp
         Telegram.WebApp.init();
     </script>
 </body>
