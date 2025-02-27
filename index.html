@@ -7,20 +7,27 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+    <!-- Кнопка для отправки данных -->
     <button onclick="sendReferral()">Отправить данные</button>
 
     <script>
-        // Функция отправки данных в Telegram бота
+        // Функция для отправки данных в Telegram бота
         function sendReferral() {
             // Создаем данные, которые передадим боту
-            const referralData = 'unique_referral_code_12345';
+            const referralData = 'unique_referral_code_12345';  // Ваш уникальный код реферала
 
             // Отправляем данные в Telegram
             Telegram.WebApp.sendData(referralData);
+
+            // Информируем пользователя о том, что данные отправлены
+            alert("Данные успешно отправлены!");
         }
 
         // Инициализация WebApp
         Telegram.WebApp.init();
+
+        // Отображаем название WebApp в заголовке
+        document.title = Telegram.WebApp.initDataUnsafe?.user?.first_name || "WebApp";
     </script>
 </body>
 </html>
