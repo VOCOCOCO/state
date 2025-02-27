@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реферальная система</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Получите свою реферальную ссылку</h1>
+    <button id="referralBtn">Получить реферальную ссылку</button>
+
+    <div id="referralLinkContainer" style="display:none;">
+        <p>Ваша реферальная ссылка: </p>
+        <input type="text" id="referralLink" readonly>
+    </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        window.Telegram.WebApp.ready();
+
+        document.getElementById('referralBtn').addEventListener('click', function() {
+            // Генерируем уникальную реферальную ссылку
+            const referralCode = Math.random().toString(36).substring(2, 15); // Простой генератор случайного кода
+            const referralLink = `https://your-web-app-url.com?ref=${referralCode}`;
+            
+            // Отправляем данные в бота через WebApp.sendData
+            window.Telegram.WebApp.sendData(referralLink);
+
+            // Показываем реферальную ссылку пользователю
+            document.getElementById('referralLink').value = referralLink;
+            document.getElementById('referralLinkContainer').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
