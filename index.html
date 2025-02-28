@@ -4,10 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000; /* Черный фон */
+        }
+        .container {
+            text-align: center;
+            color: white;
+        }
+        .gif-image {
+            width: 300px; /* Устанавливаем ширину изображения */
+            height: 300px; /* Устанавливаем высоту изображения */
+            object-fit: contain; /* Сохраняем пропорции изображения */
+            margin-bottom: 20px; /* Расстояние от изображения до кнопки */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        .button-container button {
+            font-size: 18px; /* Уменьшен размер шрифта на кнопке */
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.3); /* Полупрозрачный белый */
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            width: 130px; /* Уменьшена ширина кнопки */
+            height: 45px; /* Уменьшена высота кнопки */
+            position: relative;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Эффект тени */
+            transition: all 0.3s ease; /* Плавный переход для эффектов */
+        }
+        .button-container button:hover {
+            background-color: rgba(255, 255, 255, 0.5); /* При наведении кнопка станет менее прозрачной */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Увеличивается тень при наведении */
+        }
+        .button-container span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Центрирование текста по кнопке */
+            font-weight: bold;
+        }
+    </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <button onclick="sendReferral()">Пригласить друга</button>
+    <div class="container">
+        <!-- Вставляем уменьшенный GIF вместо фото -->
+        <img class="gif-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG5sdTM2ODU2cXk5dmxsZ3h4YjBnZWV0MTdwb3MxenQxaTF5cm1sZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BoOyQ8p3dQJOXMlwXX/giphy.gif" alt="Animated GIF"> <!-- Замените URL на свой GIF -->
+
+        <!-- Кнопка с эффектом фона -->
+        <div class="button-container">
+            <button onclick="sendReferral()">
+                <span>+10 🎟️</span> <!-- Текст на кнопке с эмодзи -->
+            </button>
+        </div>
+    </div>
 
     <script>
         // Функция отправки данных в Telegram бота
@@ -21,4 +81,3 @@
     </script>
 </body>
 </html>
-
