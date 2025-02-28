@@ -72,6 +72,7 @@
             align-items: center;
             flex-direction: column;
             z-index: 1000;
+            padding-top: 60px; /* Отступ для пространства сверху */
         }
 
         .modal-content {
@@ -80,6 +81,15 @@
             border-radius: 10px;
             width: 80%;
             text-align: center;
+            position: relative;
+        }
+
+        /* Стиль для заголовка Boost⚡ */
+        .boost-header {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ffcc00;
         }
 
         /* Кнопка "Назад" */
@@ -100,8 +110,8 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
             position: absolute;
-            top: 20px;
-            left: 20px; /* Позиционирование в верхнем левом углу */
+            top: 10px;
+            left: 10px; /* Позиционирование в верхнем левом углу */
         }
 
         .back-button:hover {
@@ -122,10 +132,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: absolute; /* Абсолютное позиционирование для центрирования */
-            top: 50%; /* Центрируем по вертикали */
-            left: 50%; /* Центрируем по горизонтали */
-            transform: translate(-50%, -50%); /* Подравнивание для точного центра */
+            position: relative; /* Убираем абсолютное позиционирование */
+            margin-top: 30px; /* Отступ сверху, чтобы кнопка была ниже надписи Boost⚡ */
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -166,6 +174,9 @@
     <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
+            <!-- Добавленная надпись Boost⚡ -->
+            <div class="boost-header">Boost⚡</div>
+            
             <button class="back-button" onclick="closeModal()">←</button>
         
             <!-- Новая кнопка внутри модального окна -->
