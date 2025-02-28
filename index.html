@@ -80,6 +80,7 @@
             text-align: center;
         }
 
+        /* Кнопка "Назад" */
         .back-button {
             font-size: 24px;
             background-color: rgba(255, 255, 255, 0.3);
@@ -103,13 +104,45 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
+        /* Новая кнопка "join to Tegz" */
+        .join-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            width: 200px;
+            height: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .join-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .join-button span {
+            font-weight: bold;
+        }
+
+        .join-button .right-text {
+            font-size: 12px;
+        }
+
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Вставляем уменьшенный GIF вместо фото -->
-        <img class="gif-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG5sdTM2ODU2cXk5dmxsZ3h4YjBnZWV0MTdwb3MxenQxaTF5cm1sZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BoOyQ8p3dQJOXMlwXX/giphy.gif" alt="Animated GIF"> <!-- Замените URL на свой GIF -->
+        <img class="gif-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG5sdTM2ODU2cXk5dmxsZ3h4YjBnZWV0MTdwb3MxenQxaTF5cm1sZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BoOyQ8p3dQJOXMlwXX/giphy.gif" alt="Animated GIF">
 
         <!-- Кнопка с эффектом фона -->
         <div class="button-container">
@@ -126,8 +159,12 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="back-button" onclick="closeModal()">←</button>
-            <h2>Пустое окно</h2>
-            <p>Здесь может быть ваш контент.</p>
+            <h2>Присоединиться к каналу</h2>
+            <!-- Новая кнопка внутри модального окна -->
+            <div class="join-button" onclick="joinChannel()">
+                <span>+100 🎟️</span>
+                <span class="right-text">join to Tegz</span>
+            </div>
         </div>
     </div>
 
@@ -148,8 +185,20 @@
             document.getElementById('modal').style.display = 'none'; // Скрываем модальное окно
         }
 
+        // Функция для присоединения к каналу и начисления +100 🎟️
+        function joinChannel() {
+            // Логика для передачи данных в бота Telegram
+            Telegram.WebApp.sendData("join_channel");
+
+            // Бот должен проверить, есть ли пользователь в канале
+            // Если да, начислить +100 🎟️
+            // Если отпишется, то -100 🎟️
+            
+        }
+
         // Инициализация WebApp
         Telegram.WebApp.init();
     </script>
 </body>
 </html>
+
