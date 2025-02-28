@@ -14,10 +14,12 @@
             margin: 0;
             background-color: #000; /* Черный фон */
             overflow: hidden;
+            position: relative;
         }
         .container {
             text-align: center;
             color: white;
+            position: relative;
         }
         .gif-image {
             width: 300px; /* Устанавливаем ширину изображения */
@@ -97,6 +99,9 @@
             margin-top: 10px;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
+            position: absolute;
+            top: 10px;
+            left: 10px; /* Позиционирование в верхнем левом углу */
         }
 
         .back-button:hover {
@@ -201,4 +206,5 @@
     </script>
 </body>
 </html>
+
 
