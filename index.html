@@ -100,8 +100,8 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
             position: absolute;
-            top: 10px;
-            left: 10px; /* Позиционирование в верхнем левом углу */
+            top: 20px;
+            left: 20px; /* Позиционирование в верхнем левом углу */
         }
 
         .back-button:hover {
@@ -117,12 +117,15 @@
             color: #fff;
             border: 2px solid #fff;
             border-radius: 20px;
-            width: 200px;
+            width: 250px; /* Сделаем кнопку шире */
             height: 45px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
+            position: absolute; /* Абсолютное позиционирование для центрирования */
+            top: 50%; /* Центрируем по вертикали */
+            left: 50%; /* Центрируем по горизонтали */
+            transform: translate(-50%, -50%); /* Подравнивание для точного центра */
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -164,7 +167,7 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="back-button" onclick="closeModal()">←</button>
-            <h2>Присоединиться к каналу</h2>
+        
             <!-- Новая кнопка внутри модального окна -->
             <div class="join-button" onclick="joinChannel()">
                 <span>+100 🎟️</span>
@@ -206,5 +209,4 @@
     </script>
 </body>
 </html>
-
 
