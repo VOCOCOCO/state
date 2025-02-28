@@ -72,7 +72,6 @@
             align-items: center;
             flex-direction: column;
             z-index: 1000;
-            padding-top: 60px; /* Отступ для пространства сверху */
         }
 
         .modal-content {
@@ -81,15 +80,6 @@
             border-radius: 10px;
             width: 80%;
             text-align: center;
-            position: relative;
-        }
-
-        /* Стиль для заголовка Boost⚡ */
-        .boost-header {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #ffcc00;
         }
 
         /* Кнопка "Назад" */
@@ -110,8 +100,8 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
             position: absolute;
-            top: 10px;
-            left: 10px; /* Позиционирование в верхнем левом углу */
+            top: 20px;
+            left: 20px; /* Позиционирование в верхнем левом углу */
         }
 
         .back-button:hover {
@@ -119,7 +109,6 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
-        /* Новая кнопка "join to Tegz" */
         .join-button {
             font-size: 18px;
             padding: 10px 20px;
@@ -127,13 +116,12 @@
             color: #fff;
             border: 2px solid #fff;
             border-radius: 20px;
-            width: 250px; /* Сделаем кнопку шире */
+            width: 250px;
             height: 45px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* Убираем абсолютное позиционирование */
-            margin-top: 30px; /* Отступ сверху, чтобы кнопка была ниже надписи Boost⚡ */
+            position: relative;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -151,22 +139,19 @@
         .join-button .right-text {
             font-size: 12px;
         }
-
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- Вставляем уменьшенный GIF вместо фото -->
         <img class="gif-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG5sdTM2ODU2cXk5dmxsZ3h4YjBnZWV0MTdwb3MxenQxaTF5cm1sZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BoOyQ8p3dQJOXMlwXX/giphy.gif" alt="Animated GIF">
 
-        <!-- Кнопка с эффектом фона -->
         <div class="button-container">
             <button onclick="sendReferral()">
-                <span>+10 🎟️</span> <!-- Текст на кнопке с эмодзи -->
+                <span>+10 🎟️</span>
             </button>
             <button onclick="openModal()">
-                <span>⚡</span> <!-- Вторая кнопка с эмодзи -->
+                <span>⚡</span>
             </button>
         </div>
     </div>
@@ -174,15 +159,19 @@
     <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
-            <!-- Добавленная надпись Boost⚡ -->
-            <div class="boost-header">Boost⚡</div>
-            
             <button class="back-button" onclick="closeModal()">←</button>
-        
-            <!-- Новая кнопка внутри модального окна -->
+            <h2>Boost⚡</h2>
+
+            <!-- Первая кнопка -->
             <div class="join-button" onclick="joinChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to Tegz</span>
+            </div>
+
+            <!-- Вторая кнопка для подписки на второй канал -->
+            <div class="join-button" onclick="joinSecondChannel()">
+                <span>+100 🎟️</span>
+                <span class="right-text">join to second channel</span>
             </div>
         </div>
     </div>
@@ -190,32 +179,29 @@
     <script>
         // Функция отправки данных в Telegram бота
         function sendReferral() {
-            // Отправляем данные в Telegram
             Telegram.WebApp.sendData("request_referral_link");
         }
 
-        // Функция для открытия модального окна
+        // Открытие модального окна
         function openModal() {
-            document.getElementById('modal').style.display = 'flex'; // Показываем модальное окно
+            document.getElementById('modal').style.display = 'flex';
         }
 
-        // Функция для закрытия модального окна
+        // Закрытие модального окна
         function closeModal() {
-            document.getElementById('modal').style.display = 'none'; // Скрываем модальное окно
+            document.getElementById('modal').style.display = 'none';
         }
 
-        // Функция для присоединения к каналу и начисления +100 🎟️
+        // Функция для присоединения к каналу и начисления 100 🎟️
         function joinChannel() {
-            // Логика для передачи данных в бота Telegram
             Telegram.WebApp.sendData("join_channel");
-
-            // Бот должен проверить, есть ли пользователь в канале
-            // Если да, начислить +100 🎟️
-            // Если отпишется, то -100 🎟️
-            
         }
 
-        // Инициализация WebApp
+        // Функция для подписки на второй канал и начисления 100 🎟️
+        function joinSecondChannel() {
+            Telegram.WebApp.sendData("join_second_channel");
+        }
+
         Telegram.WebApp.init();
     </script>
 </body>
