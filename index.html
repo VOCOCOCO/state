@@ -135,12 +135,19 @@
         }
         
 
+
         .join-button span {
             font-weight: bold;
         }
 
         .join-button .right-text {
             font-size: 12px;
+        }
+
+        /* Убираем масштабирование страницы */
+        html, body {
+            overflow: hidden;
+            margin: 0;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
@@ -207,6 +214,7 @@
         }
 
         Telegram.WebApp.init();
+        Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
 
         // THREE.js: создаем фон со звездами
         var scene = new THREE.Scene();
@@ -243,4 +251,5 @@
     </script>
 </body>
 </html>
+
 
