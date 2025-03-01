@@ -12,10 +12,11 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000;
+            background-color: #000; /* Черный фон */
             overflow: hidden;
             position: relative;
         }
+        /* Контейнер для частиц (звёзд) */
         #particles-js {
             position: absolute;
             width: 100%;
@@ -27,37 +28,46 @@
             text-align: center;
             color: white;
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Чтобы контейнер был поверх частиц */
         }
         .gif-image {
-            width: 300px;
-            height: 300px;
-            object-fit: contain;
-            margin-bottom: 20px;
+            width: 300px; /* Устанавливаем ширину изображения */
+            height: 300px; /* Устанавливаем высоту изображения */
+            object-fit: contain; /* Сохраняем пропорции изображения */
+            margin-bottom: 20px; /* Расстояние от изображения до кнопки */
         }
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 10px; /* Расстояние между кнопками */
         }
         .button-container button {
-            font-size: 18px;
+            font-size: 18px; /* Уменьшен размер шрифта на кнопке */
             padding: 10px 20px;
             cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.3); /* Полупрозрачный белый */
             color: #fff;
             border: 2px solid #fff;
             border-radius: 20px;
-            width: 130px;
-            height: 45px;
+            width: 130px; /* Уменьшена ширина кнопки */
+            height: 45px; /* Уменьшена высота кнопки */
             position: relative;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Эффект тени */
+            transition: all 0.3s ease; /* Плавный переход для эффектов */
         }
         .button-container button:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.5); /* При наведении кнопка станет менее прозрачной */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Увеличивается тень при наведении */
         }
+        .button-container span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Центрирование текста по кнопке */
+            font-weight: bold;
+        }
+
+        /* Стиль для модального окна */
         .modal {
             display: none;
             position: fixed;
@@ -72,6 +82,7 @@
             flex-direction: column;
             z-index: 1000;
         }
+
         .modal-content {
             background-color: #333;
             padding: 20px;
@@ -79,6 +90,8 @@
             width: 80%;
             text-align: center;
         }
+
+        /* Кнопка "Назад" */
         .back-button {
             font-size: 24px;
             background-color: rgba(255, 255, 255, 0.3);
@@ -93,14 +106,18 @@
             cursor: pointer;
             margin-left: 10px;
             margin-top: 10px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: 20px; /* Позиционирование в верхнем левом углу */
         }
+
         .back-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
+
         .join-button {
             font-size: 17px;
             padding: 10px 20px;
@@ -117,22 +134,32 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 10px; /* Добавляем отступ снизу для разделения кнопок */
         }
+        
         .join-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
+        
+
         .join-button span {
             font-weight: bold;
+        }
+
+        .join-button .right-text {
+            font-size: 12px;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
+    <!-- Контейнер для частиц -->
     <div id="particles-js"></div>
 
     <div class="container">
         <img class="gif-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG5sdTM2ODU2cXk5dmxsZ3h4YjBnZWV0MTdwb3MxenQxaTF5cm1sZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BoOyQ8p3dQJOXMlwXX/giphy.gif" alt="Animated GIF">
+
         <div class="button-container">
             <button onclick="sendReferral()">
                 <span>+10 🎟️</span>
@@ -143,14 +170,19 @@
         </div>
     </div>
 
+    <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="back-button" onclick="closeModal()">←</button>
             <h2>Boost⚡</h2>
+
+            <!-- Первая кнопка -->
             <div class="join-button" onclick="joinChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to VOCO</span>
             </div>
+
+            <!-- Вторая кнопка для подписки на второй канал -->
             <div class="join-button" onclick="joinSecondChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to Tegz</span>
@@ -159,108 +191,99 @@
     </div>
 
     <script>
-    // Функция отправки данных в Telegram бота
-    function sendReferral() {
-        Telegram.WebApp.sendData("request_referral_link");
-    }
+        // Функция отправки данных в Telegram бота
+        function sendReferral() {
+            Telegram.WebApp.sendData("request_referral_link");
+        }
 
-    // Открытие модального окна
-    function openModal() {
-        document.getElementById('modal').style.display = 'flex';
-    }
+        // Открытие модального окна
+        function openModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
 
-    // Закрытие модального окна
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-    }
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
 
-    // Функция для присоединения к каналу и начисления 100 🎟️
-    function joinChannel() {
-        Telegram.WebApp.sendData("join_channel");
-    }
+        // Функция для присоединения к каналу и начисления 100 🎟️
+        function joinChannel() {
+            Telegram.WebApp.sendData("join_channel");
+        }
 
-    // Функция для подписки на второй канал и начисления 100 🎟️
-    function joinSecondChannel() {
-        Telegram.WebApp.sendData("join_second_channel");
-    }
+        // Функция для подписки на второй канал и начисления 100 🎟️
+        function joinSecondChannel() {
+            Telegram.WebApp.sendData("join_second_channel");
+        }
 
-    // Инициализация particles.js
-    particlesJS("particles-js", {
-        "particles": {
-            "number": {
-                "value": 100,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#ffffff"
-            },
-            "shape": {
-                "type": "star",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
+        // Инициализация particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
                 },
-                "polygon": {
-                    "nb_sides": 5
-                }
-            },
-            "opacity": {
-                "value": 0.5,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 1,
-                    "opacity_min": 0.1
-                }
-            },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 1,
-                    "size_min": 0.1
-                }
-            },
-            "line_linked": {
-                "enable": false
-            },
-            "move": {
-                "enable": true,
-                "speed": 0.5,
-                "direction": "none",
-                "random": true,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "star",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "size_min": 0.1
+                    }
+                },
+                "line_linked": {
                     "enable": false
                 },
-                "onclick": {
-                    "enable": false
+                "move": {
+                    "enable": true,
+                    "speed": 0.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false
+                    },
+                    "onclick": {
+                        "enable": false
+                    }
                 }
             }
-        }
-    });
+        });
 
-    // Переход в полноэкранный режим при загрузке страницы
-    window.onload = function() {
-        if (Telegram.WebApp.isTelegram()) {
-            Telegram.WebApp.expand();
-        }
-    };
-
-    // Инициализация WebApp API
-    Telegram.WebApp.init();
-</script>
-
+        Telegram.WebApp.init();
+    </script>
 </body>
 </html>
