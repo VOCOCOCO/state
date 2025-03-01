@@ -213,8 +213,11 @@
             Telegram.WebApp.sendData("join_second_channel");
         }
 
-        Telegram.WebApp.init();
-        Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
+        // Инициализация Telegram WebApp
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
+        }
 
         // THREE.js: создаем фон со звездами
         var scene = new THREE.Scene();
