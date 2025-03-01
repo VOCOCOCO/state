@@ -20,7 +20,7 @@
             text-align: center;
             color: white;
             position: relative;
-            z-index: 2; /* Убедимся, что контейнер с контентом будет поверх звезд */
+            z-index: 2; /* Убедимся, что контейнер с контентом будет поверх */
         }
         .gif-image {
             width: 300px; /* Устанавливаем ширину изображения */
@@ -150,7 +150,6 @@
             margin: 0;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -213,43 +212,14 @@
             Telegram.WebApp.sendData("join_second_channel");
         }
 
-        Telegram.WebApp.init();
-        Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
-
-        // THREE.js: создаем фон со звездами
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        var starsGeometry = new THREE.BufferGeometry();
-        var starsMaterial = new THREE.PointsMaterial({ color: 0x888888, size: 0.2 });
-        var stars = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(stars);
-
-        var starVertices = [];
-        for (var i = 0; i < 10000; i++) {
-            var x = Math.random() * 2000 - 1000;
-            var y = Math.random() * 2000 - 1000;
-            var z = Math.random() * 2000 - 1000;
-            starVertices.push(x, y, z);
+        // Инициализация Telegram WebApp и переход в полноэкранный режим
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
         }
-
-        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-
-        camera.position.z = 1;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            stars.rotation.x += 0.001;
-            stars.rotation.y += 0.001;
-            renderer.render(scene, camera);
-        }
-
-        animate();
     </script>
 </body>
 </html>
+
 
 
