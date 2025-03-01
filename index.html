@@ -159,101 +159,108 @@
     </div>
 
     <script>
-        function sendReferral() {
-            Telegram.WebApp.sendData("request_referral_link");
-        }
+    // Функция отправки данных в Telegram бота
+    function sendReferral() {
+        Telegram.WebApp.sendData("request_referral_link");
+    }
 
-        function openModal() {
-            document.getElementById('modal').style.display = 'flex';
-        }
+    // Открытие модального окна
+    function openModal() {
+        document.getElementById('modal').style.display = 'flex';
+    }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
+    // Закрытие модального окна
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
 
-        function joinChannel() {
-            Telegram.WebApp.sendData("join_channel");
-        }
+    // Функция для присоединения к каналу и начисления 100 🎟️
+    function joinChannel() {
+        Telegram.WebApp.sendData("join_channel");
+    }
 
-        function joinSecondChannel() {
-            Telegram.WebApp.sendData("join_second_channel");
-        }
+    // Функция для подписки на второй канал и начисления 100 🎟️
+    function joinSecondChannel() {
+        Telegram.WebApp.sendData("join_second_channel");
+    }
 
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 100,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "star",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 1,
-                        "opacity_min": 0.1
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 1,
-                        "size_min": 0.1
-                    }
-                },
-                "line_linked": {
-                    "enable": false
-                },
-                "move": {
+    // Инициализация particles.js
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 100,
+                "density": {
                     "enable": true,
-                    "speed": 0.5,
-                    "direction": "none",
-                    "random": true,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
+                    "value_area": 800
                 }
             },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": false
-                    },
-                    "onclick": {
-                        "enable": false
-                    }
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "star",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": true,
+                "anim": {
+                    "enable": true,
+                    "speed": 1,
+                    "opacity_min": 0.1
+                }
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                    "enable": true,
+                    "speed": 1,
+                    "size_min": 0.1
+                }
+            },
+            "line_linked": {
+                "enable": false
+            },
+            "move": {
+                "enable": true,
+                "speed": 0.5,
+                "direction": "none",
+                "random": true,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": false
+                },
+                "onclick": {
+                    "enable": false
                 }
             }
-        });
-
-        function goFullscreen() {
-            Telegram.WebApp.enableFullscreen();
         }
+    });
 
-        window.onload = function() {
-            goFullscreen();
-        };
+    // Переход в полноэкранный режим при загрузке страницы
+    window.onload = function() {
+        if (Telegram.WebApp.isTelegram()) {
+            Telegram.WebApp.expand();
+        }
+    };
 
-        Telegram.WebApp.init();
-    </script>
+    // Инициализация WebApp API
+    Telegram.WebApp.init();
+</script>
+
 </body>
 </html>
