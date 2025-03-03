@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000; /* Черный фон */
+            background-color: #000;
             overflow: hidden;
             position: relative;
         }
@@ -20,43 +20,74 @@
             text-align: center;
             color: white;
             position: relative;
-            z-index: 2; /* Убедимся, что контейнер с контентом будет поверх */
+            z-index: 2;
         }
         .gif-image {
-            width: 330px; /* Устанавливаем ширину изображения */
-            height: 330px; /* Устанавливаем высоту изображения */
-            object-fit: contain; /* Сохраняем пропорции изображения */
-            margin-bottom: 20px; /* Расстояние от изображения до кнопки */
+            width: 330px;
+            height: 330px;
+            object-fit: contain;
+            margin-bottom: 20px;
         }
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 10px; /* Расстояние между кнопками */
+            gap: 10px;
         }
         .button-container button {
-            font-size: 18px; /* Уменьшен размер шрифта на кнопке */
+            font-size: 18px;
             padding: 10px 20px;
             cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.3); /* Полупрозрачный белый */
+            background-color: rgba(255, 255, 255, 0.3);
             color: #fff;
             border: 2px solid #fff;
             border-radius: 20px;
-            width: 130px; /* Уменьшена ширина кнопки */
-            height: 45px; /* Уменьшена высота кнопки */
+            width: 130px;
+            height: 45px;
             position: relative;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Эффект тени */
-            transition: all 0.3s ease; /* Плавный переход для эффектов */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
         }
         .button-container button:hover {
-            background-color: rgba(255, 255, 255, 0.5); /* При наведении кнопка станет менее прозрачной */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Увеличивается тень при наведении */
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
         .button-container span {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Центрирование текста по кнопке */
+            transform: translate(-50%, -50%);
             font-weight: bold;
+        }
+
+        /* Стиль для вкладок переключения */
+        .tabs {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(128, 128, 128, 0.6);
+            border-radius: 25px;
+            display: flex;
+            padding: 5px;
+            width: 180px; /* Уменьшена ширина вкладок */
+            justify-content: space-around;
+            z-index: 10;
+        }
+        .tab-button {
+            font-size: 12px; /* Уменьшение размера шрифта */
+            padding: 5px 18px; /* Уменьшение отступов */
+            cursor: pointer;
+            color: white;
+            background-color: transparent;
+            border: none;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .tab-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .tab-button.active {
+            background-color: rgba(255, 255, 255, 0.6);
         }
 
         /* Стиль для модального окна */
@@ -83,7 +114,6 @@
             text-align: center;
         }
 
-        /* Кнопка "Назад" */
         .back-button {
             font-size: 24px;
             background-color: rgba(255, 255, 255, 0.3);
@@ -102,7 +132,7 @@
             transition: all 0.3s ease;
             position: absolute;
             top: 20px;
-            left: 20px; /* Позиционирование в верхнем левом углу */
+            left: 20px;
         }
 
         .back-button:hover {
@@ -126,15 +156,13 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 10px; /* Добавляем отступ снизу для разделения кнопок */
+            margin-bottom: 10px;
         }
         
         .join-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
-        
-
 
         .join-button span {
             font-weight: bold;
@@ -144,16 +172,30 @@
             font-size: 12px;
         }
 
-        /* Убираем масштабирование страницы */
         html, body {
             overflow: hidden;
             margin: 0;
         }
+
+        /* Стили для текста внизу вкладки Game */
+        .coming-soon {
+            position: absolute;
+            bottom: 0.1px;  /* Располагаем внизу */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15px;
+            color: #fff;
+            font-weight: bold;
+        }
     </style>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="tabs">
+        <button class="tab-button active" onclick="showTab('main')">Main</button>
+        <button class="tab-button" onclick="showTab('game')">Game</button>
+    </div>
+
+    <div class="container" id="mainTab">
         <img class="gif-image" src="giphy.gif" alt="Animated GIF">
 
         <div class="button-container">
@@ -166,19 +208,22 @@
         </div>
     </div>
 
+    <div class="container" id="gameTab" style="display: none;">
+        <img class="gif-image" src="ggiphy.gif" alt="Game GIF">
+        <div class="coming-soon">Coming soon...</div> <!-- Добавляем текст -->
+    </div>
+
     <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="back-button" onclick="closeModal()">←</button>
             <h2>Boost⚡</h2>
 
-            <!-- Первая кнопка -->
             <div class="join-button" onclick="joinChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to VOCO</span>
             </div>
 
-            <!-- Вторая кнопка для подписки на второй канал -->
             <div class="join-button" onclick="joinSecondChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to Tegz</span>
@@ -186,7 +231,31 @@
         </div>
     </div>
 
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        // Функция переключения вкладок
+        function showTab(tab) {
+            const mainTab = document.getElementById('mainTab');
+            const gameTab = document.getElementById('gameTab');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            // Скрыть все вкладки
+            mainTab.style.display = 'none';
+            gameTab.style.display = 'none';
+            
+            // Убрать класс активной вкладки с кнопок
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            // Показать нужную вкладку
+            if (tab === 'main') {
+                mainTab.style.display = 'block';
+                tabButtons[0].classList.add('active');
+            } else if (tab === 'game') {
+                gameTab.style.display = 'block';
+                tabButtons[1].classList.add('active');
+            }
+        }
+
         // Функция отправки данных в Telegram бота
         function sendReferral() {
             Telegram.WebApp.sendData("request_referral_link");
@@ -220,5 +289,3 @@
     </script>
 </body>
 </html>
-
-
