@@ -27,8 +27,6 @@
             height: 330px;
             object-fit: contain;
             margin-bottom: 20px;
-            cursor: pointer;
-            position: relative;
         }
         .button-container {
             display: flex;
@@ -53,6 +51,15 @@
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
+        .button-container span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        /* Стиль для вкладок переключения */
         .tabs {
             position: absolute;
             top: 20px;
@@ -62,13 +69,13 @@
             border-radius: 25px;
             display: flex;
             padding: 5px;
-            width: 180px;
+            width: 180px; /* Уменьшена ширина вкладок */
             justify-content: space-around;
             z-index: 10;
         }
         .tab-button {
-            font-size: 12px;
-            padding: 5px 18px;
+            font-size: 12px; /* Уменьшение размера шрифта */
+            padding: 5px 18px; /* Уменьшение отступов */
             cursor: pointer;
             color: white;
             background-color: transparent;
@@ -82,6 +89,8 @@
         .tab-button.active {
             background-color: rgba(255, 255, 255, 0.6);
         }
+
+        /* Стиль для модального окна */
         .modal {
             display: none;
             position: fixed;
@@ -96,6 +105,7 @@
             flex-direction: column;
             z-index: 1000;
         }
+
         .modal-content {
             background-color: #333;
             padding: 20px;
@@ -103,6 +113,7 @@
             width: 80%;
             text-align: center;
         }
+
         .back-button {
             font-size: 24px;
             background-color: rgba(255, 255, 255, 0.3);
@@ -123,10 +134,12 @@
             top: 20px;
             left: 20px;
         }
+
         .back-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
+
         .join-button {
             font-size: 15px;
             padding: 10px 20px;
@@ -145,52 +158,34 @@
             transition: all 0.3s ease;
             margin-bottom: 10px;
         }
+        
         .join-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
+
         .join-button span {
             font-weight: bold;
         }
+
         .join-button .right-text {
             font-size: 12px;
         }
+
         html, body {
             overflow: hidden;
             margin: 0;
         }
+
+        /* Стили для текста внизу вкладки Game */
         .coming-soon {
             position: absolute;
-            bottom: 0.1px;
+            bottom: 0.1px;  /* Располагаем внизу */
             left: 50%;
             transform: translateX(-50%);
             font-size: 15px;
             color: #fff;
             font-weight: bold;
-        }
-        .coin-balance {
-            font-size: 18px;
-            color: #fff;
-            margin-top: 20px;
-        }
-        .coin-popup {
-            position: absolute;
-            color: #fff;
-            font-size: 18px;
-            animation: riseUp 1s forwards;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        @keyframes riseUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
         }
     </style>
 </head>
@@ -202,6 +197,7 @@
 
     <div class="container" id="mainTab">
         <img class="gif-image" src="giphy.gif" alt="Animated GIF">
+
         <div class="button-container">
             <button onclick="sendReferral()">
                 <span>+10 🎟️</span>
@@ -213,21 +209,21 @@
     </div>
 
     <div class="container" id="gameTab" style="display: none;">
-        <div class="game-image-container">
-            <img id="gameImage" class="gif-image" src="photo_2025-03-07_21-49-20.jpg" alt="Game Image" onclick="handleImageClick(event)">
-            <div class="coin-balance" id="coinBalance">Coins: 0</div>
-        </div>
+        <img class="gif-image" src="giphyyy.gif" alt="Game GIF">
+        <div class="coming-soon">Coming soon...</div> <!-- Добавляем текст -->
     </div>
 
-    <!-- Modal -->
+    <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="back-button" onclick="closeModal()">←</button>
             <h2>Boost⚡</h2>
+
             <div class="join-button" onclick="joinChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to VOCO</span>
             </div>
+
             <div class="join-button" onclick="joinSecondChannel()">
                 <span>+100 🎟️</span>
                 <span class="right-text">join to Tegz</span>
@@ -235,85 +231,28 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        let clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
-        let coinBalance = localStorage.getItem('coinBalance') ? parseInt(localStorage.getItem('coinBalance')) : 0;
-
-        // Обновление баланса монет
-        function updateBalance() {
-            document.getElementById('coinBalance').innerText = `Coins: ${coinBalance}`;
-        }
-
-        // Функция для обработки кликов по изображению
-        function handleImageClick(event) {
-            clickCount++;
-            if (clickCount % 10 === 0) {
-                coinBalance++;
-                localStorage.setItem('coinBalance', coinBalance); // Сохранение баланса монет
-            }
-            localStorage.setItem('clickCount', clickCount); // Сохранение количества кликов
-            updateBalance();
-
-            // Анимация изображения при клике
-            anime({
-                targets: '#gameImage',
-                scale: [
-                    { value: 1.1, duration: 200 },
-                    { value: 1, duration: 200 }
-                ],
-                easing: 'easeInOutQuad'
-            });
-
-            // Позиция клика
-            const rect = event.target.getBoundingClientRect();
-            const clickX = event.clientX - rect.left; // Координата X относительно изображения
-            const clickY = event.clientY - rect.top;  // Координата Y относительно изображения
-
-            // Появление и исчезновение эффекта +0.1
-            let coinPopup = document.createElement('div');
-            coinPopup.classList.add('coin-popup');
-            coinPopup.innerText = '+0.1';
-
-            // Позиционируем всплывающее сообщение относительно координат клика
-            coinPopup.style.left = `${clickX}px`;
-            coinPopup.style.top = `${clickY}px`;
-
-            // Добавляем в контейнер изображения
-            const imageContainer = document.querySelector('.game-image-container');
-            imageContainer.appendChild(coinPopup);
-
-            // Анимация подъема и исчезновения
-            anime({
-                targets: coinPopup,
-                translateY: [-30, 0], // Поднимаем вверх
-                opacity: [1, 0],
-                duration: 1000,
-                easing: 'easeInOutQuad',
-                complete: () => {
-                    coinPopup.remove(); // Удаляем элемент после анимации
-                }
-            });
-        }
-
         // Функция переключения вкладок
         function showTab(tab) {
             const mainTab = document.getElementById('mainTab');
             const gameTab = document.getElementById('gameTab');
             const tabButtons = document.querySelectorAll('.tab-button');
             
+            // Скрыть все вкладки
             mainTab.style.display = 'none';
             gameTab.style.display = 'none';
             
+            // Убрать класс активной вкладки с кнопок
             tabButtons.forEach(button => button.classList.remove('active'));
 
+            // Показать нужную вкладку
             if (tab === 'main') {
                 mainTab.style.display = 'block';
                 tabButtons[0].classList.add('active');
             } else if (tab === 'game') {
                 gameTab.style.display = 'block';
                 tabButtons[1].classList.add('active');
-                updateBalance(); // Обновляем баланс при переключении на вкладку Game
             }
         }
 
@@ -332,17 +271,17 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Присоединение к каналу
+        // Функция для присоединения к каналу и начисления 100 🎟️
         function joinChannel() {
             Telegram.WebApp.sendData("join_channel");
         }
 
-        // Присоединение ко второму каналу
+        // Функция для подписки на второй канал и начисления 100 🎟️
         function joinSecondChannel() {
             Telegram.WebApp.sendData("join_second_channel");
         }
 
-        // Инициализация Telegram WebApp
+        // Инициализация Telegram WebApp и переход в полноэкранный режим
         if (window.Telegram.WebApp) {
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand(); // Разворачиваем WebApp в полноэкранный режим
