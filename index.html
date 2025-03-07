@@ -28,6 +28,7 @@
             object-fit: contain;
             margin-bottom: 20px;
             cursor: pointer;
+            position: relative;
         }
         .button-container {
             display: flex;
@@ -158,13 +159,27 @@
             overflow: hidden;
             margin: 0;
         }
+        .coming-soon {
+            position: absolute;
+            bottom: 0.1px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .coin-balance {
+            font-size: 18px;
+            color: #fff;
+            margin-top: 20px;
+        }
         .coin-popup {
             position: absolute;
             color: #fff;
-            font-size: 18px;
+            font-size: 23px;
             animation: riseUp 1s forwards;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
         }
         @keyframes riseUp {
@@ -187,7 +202,6 @@
 
     <div class="container" id="mainTab">
         <img class="gif-image" src="giphy.gif" alt="Animated GIF">
-
         <div class="button-container">
             <button onclick="sendReferral()">
                 <span>+10 🎟️</span>
@@ -199,7 +213,10 @@
     </div>
 
     <div class="container" id="gameTab" style="display: none;">
-        <img class="gif-image" src="giphyyy.gif" alt="Game GIF" id="gameImage" onclick="handleImageClick(event)">
+        <div class="game-image-container">
+            <img id="gameImage" class="gif-image" src="photo_2025-03-07_21-49-20.jpg" alt="Game Image" onclick="handleImageClick(event)">
+            <div class="coin-balance" id="coinBalance">Coins: 0</div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -218,7 +235,7 @@
         </div>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
     <script>
         let clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
         let coinBalance = localStorage.getItem('coinBalance') ? parseInt(localStorage.getItem('coinBalance')) : 0;
@@ -238,28 +255,43 @@
             localStorage.setItem('clickCount', clickCount); // Сохранение количества кликов
             updateBalance();
 
+            // Анимация изображения при клике
+            anime({
+                targets: '#gameImage',
+                scale: [
+                    { value: 1.1, duration: 200 },
+                    { value: 1, duration: 200 }
+                ],
+                easing: 'easeInOutQuad'
+            });
+
+            // Позиция клика
+            const rect = event.target.getBoundingClientRect();
+            const clickX = event.clientX - rect.left; // Координата X относительно изображения
+            const clickY = event.clientY - rect.top;  // Координата Y относительно изображения
+
             // Появление и исчезновение эффекта +0.1
             let coinPopup = document.createElement('div');
             coinPopup.classList.add('coin-popup');
             coinPopup.innerText = '+0.1';
 
-            // Позиционируем всплывающее сообщение относительно места клика
-            const rect = event.target.getBoundingClientRect();
-            coinPopup.style.left = `${event.clientX - rect.left}px`;
-            coinPopup.style.top = `${event.clientY - rect.top}px`;
+            // Позиционируем всплывающее сообщение относительно координат клика
+            coinPopup.style.left = `${clickX}px`;
+            coinPopup.style.top = `${clickY}px`;
 
-            // Добавляем элемент на страницу
-            document.body.appendChild(coinPopup);
+            // Добавляем в контейнер изображения
+            const imageContainer = document.querySelector('.game-image-container');
+            imageContainer.appendChild(coinPopup);
 
             // Анимация подъема и исчезновения
             anime({
                 targets: coinPopup,
-                translateY: [-30, 0],
+                translateY: [-30, 0], // Поднимаем вверх
                 opacity: [1, 0],
                 duration: 1000,
                 easing: 'easeInOutQuad',
                 complete: () => {
-                    coinPopup.remove();
+                    coinPopup.remove(); // Удаляем элемент после анимации
                 }
             });
         }
@@ -281,11 +313,13 @@
             } else if (tab === 'game') {
                 gameTab.style.display = 'block';
                 tabButtons[1].classList.add('active');
+                updateBalance(); // Обновляем баланс при переключении на вкладку Game
             }
         }
 
-        // Функция отправки данных в Telegram бота
+        // Функция отправки данных в Telegram бота для рефералов
         function sendReferral() {
+            // Отправка реферальной ссылки или другого запроса
             Telegram.WebApp.sendData("request_referral_link");
         }
 
@@ -299,14 +333,14 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Присоединение к каналу
+        // Присоединение к каналу VOCO
         function joinChannel() {
-            Telegram.WebApp.sendData("join_channel");
+            Telegram.WebApp.sendData("join_channel_voco"); // Отправляем данные для присоединения к VOCO
         }
 
-        // Присоединение ко второму каналу
+        // Присоединение ко второму каналу Tegz
         function joinSecondChannel() {
-            Telegram.WebApp.sendData("join_second_channel");
+            Telegram.WebApp.sendData("join_channel_tegz"); // Отправляем данные для присоединения к Tegz
         }
 
         // Инициализация Telegram WebApp
